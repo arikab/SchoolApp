@@ -13,14 +13,49 @@ sap.ui.jsview("view.Teachers", {
 	* @memberOf view.Teachers
 	*/ 
 	createContent : function(oController) {
- 		return new sap.m.Page({
+ 		
+		//var ddclasses = new sap.ui.commons.DropdownBox("ddclasses",{
+		var ddclasses = new sap.m.Select("ddclasses",{
+			change: function(oSelData){
+				var sel = oSelData.getParameter("selectedItem");
+				var ctx = sel.getBindingContext("classModel");
+				var path = ctx.getPath();
+				
+				var teach = sap.ui.getCore().byId("ddTeachers");
+				var oModel = this.getModel("classModel");
+				var context = oModel.getContext(path);
+				
+				teach.setBindingContext(context, "classModel");
+			}
+		});
+		ddclasses.bindItems({
+			path: "classModel>/classes",
+			template: new sap.ui.core.ListItem({
+				text: "{classModel>desc}",
+				key: "{classModel>key}"
+			})
+		});
+		
+		//var ddTeachers = new sap.ui.commons.DropdownBox("ddTeachers");
+		var ddTeachers = new sap.m.Select("ddTeachers");
+		
+		ddTeachers.bindItems({
+			path: "classModel>teachers",
+			template: new sap.ui.core.ListItem({
+				text: "{classModel>name}",
+				key: "{classModel>id}"
+			})
+		});
+		
+		return new sap.m.Page({
 			title: "Teachers",
 			navButtonPress: [function(){
 				oController.myNavBack("", {});
 			},oController],
 			showNavButton: true,
 			content: [
-			
+			    ddclasses,
+			    ddTeachers
 			]
 		});
 	}

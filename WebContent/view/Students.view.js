@@ -19,6 +19,7 @@ sap.ui.jsview("view.Students", {
 				oController.myNavBack("", {});
 			},oController],
 			showNavButton: true,
+			
 			content: [
 			
 			]

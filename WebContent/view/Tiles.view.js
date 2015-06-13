@@ -28,7 +28,7 @@ sap.ui.jsview("view.Tiles", {
 		});
 		
 		return new sap.m.Page({
-			title: "Title",
+			showHeader: false,
 			content: [
 			    new sap.m.TileContainer({tiles: [tile1, tile2]})
 			]

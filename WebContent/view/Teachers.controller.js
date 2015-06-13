@@ -7,9 +7,62 @@ view.BaseController.extend("view.Teachers", {
 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
 * @memberOf view.Teachers
 */
-//	onInit: function() {
-//
-//	},
+	onInit: function() {
+		var oModel = new sap.ui.model.json.JSONModel({
+			classes: [
+			     {
+			    	 key: 1,
+			    	 desc: "Math",
+			    	 teachers: [
+			    	      {
+			    	    	  id: 100,
+			    	    	  name: "Tuvia"
+			    	      },
+			    	      {
+			    	    	  id: 200,
+			    	    	  name : "Bela"
+			    	      }
+			    	 ]
+				 },
+				 {
+					 key: 2,
+					 desc: "Science",
+					 teachers: [
+					      {
+					    	  id: 300,
+					    	  name: "Haya"
+					      },
+					      {
+					    	  id: 400,
+					    	  name : "Rivka"
+					      }
+					 ]
+				 },
+				 {
+					 key: 3,
+					 desc: "Art",
+					 teachers: [
+					      {
+					    	  id: 500,
+					    	  name: "Moshe"
+					      },
+					      {
+					    	  id: 600,
+					    	  name : "Yehoshua"
+					      }
+					 ]
+				 }
+			]
+		
+		});
+		this.getView().setModel(oModel, "classModel");
+		
+		var teach = sap.ui.getCore().byId("ddTeachers");
+		
+		var context = oModel.getContext("/classes/0/");
+		
+		teach.setBindingContext(context, "classModel");
+	},
 
 	/*myNavBack : function(sRoute, mData) {
 		var oHistory = sap.ui.core.routing.History.getInstance();
